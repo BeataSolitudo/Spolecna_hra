@@ -1,6 +1,8 @@
 #include <stdio.h>
 
+#define VEL 20;
+
 int main() {
-    printf("Doby den, ryze ryze.\n");
+    char name[VEL];
     return 0;
 }
