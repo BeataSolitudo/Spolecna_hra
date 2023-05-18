@@ -3,7 +3,6 @@
 #include <conio.h>
 #include <unistd.h>
 
-
 #define VEL 20
 
 typedef struct {
@@ -15,14 +14,28 @@ typedef struct {
 } POSTAVA;
 
 void login (char *name) {
-    do {
-        printf("Enter your name: ");
-        fgets(name, 100, stdin);
-        name[strcspn(name, "\n")] = '\0'; // Odstranění znaku nového řádku z fgets
-        if(strlen(name) < 1){printf("You didn't enter correct username, please try again.\n");}
-    } while (strlen(name) < 1);
+    int isValid = 0;
 
-system("cls");
+    do {
+        printf("Enter a name: ");
+        fgets(name, 100, stdin);
+        
+        int length = strlen(name);
+
+        if (length > 0 && name[length - 1] == '\n') {
+            name[length - 1] = '\0';
+        }
+        
+        if(name[0] == '\0' || name[0] == ' ') {
+            printf("You didn't enter correct username, please try again.\n");
+            isValid = 0;
+        } else {
+            isValid = 1;
+        }
+        
+    } while (!isValid);
+
+    system("cls");
 }
 
 void choosing_a_hero(POSTAVA postavy[3], int *option) {
@@ -82,8 +95,6 @@ int main() {
     POSTAVA postavy[3];
 
     login (name);
-    
-
     stats(postavy);
     choosing_a_hero(postavy, &option);
 
