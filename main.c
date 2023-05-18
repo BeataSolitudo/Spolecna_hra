@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <conio.h>
+#include <unistd.h>
+
 
 #define VEL 20
 
@@ -13,8 +15,14 @@ typedef struct {
 } POSTAVA;
 
 void login (char *name) {
+    do {
         printf("Enter your name: ");
-        scanf("%20[^\n]s", name);
+        fgets(name, 100, stdin);
+        name[strcspn(name, "\n")] = '\0'; // Odstranění znaku nového řádku z fgets
+        if(strlen(name) < 1){printf("You didn't enter correct username, please try again.\n");}
+    } while (strlen(name) < 1);
+
+system("cls");
 }
 
 void choosing_a_hero(POSTAVA postavy[3], int *option) {
@@ -77,6 +85,7 @@ int main() {
     stats(postavy);
     choosing_a_hero(postavy, &option);
 
+    printf("Your name: %s\n", name);
     printf("Your choice: %s\n", postavy[option-1].typ);
 
     return 0;
