@@ -35,6 +35,8 @@ void choosing_a_hero(POSTAVA postavy[3], int *option) {
     do {
         scanf("%d", option);
     } while (*option <= 1 && *option >= 3);
+
+system("cls");
 }
 
 void stats_for_monsters (POSTAVA monsters[3]) {
